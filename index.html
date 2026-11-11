@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Higor Oliveira — Portfólio AI Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* Layout: caderno de casos — coluna editorial alinhada à esquerda, cada projeto é um "caso" com rótulos fixos à esquerda (Problema → Construção → Stack → Impacto). */
+:root{
+  --bg:#F3F4F1;
+  --surface:#FFFFFF;
+  --ink:#14171B;
+  --muted:#596068;
+  --line:#D8DBD5;
+  --accent:#2142C9;
+  --accent-soft:#E6EAFB;
+  --ok:#1D7A4E;
+  --font-display:"Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --font-body:"IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F1216; --surface:#171B21; --ink:#E8EBEF; --muted:#9AA2AC;
+    --line:#2A3038; --accent:#93A6FF; --accent-soft:#1C2340; --ok:#5CC995;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F1216; --surface:#171B21; --ink:#E8EBEF; --muted:#9AA2AC;
+  --line:#2A3038; --accent:#93A6FF; --accent-soft:#1C2340; --ok:#5CC995;
+  color-scheme: dark;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:17px;line-height:1.6}
+a{color:var(--accent)}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+h1,h2,h3{font-family:var(--font-display);text-wrap:balance;margin:0;line-height:1.1}
+p{margin:0}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+@media (max-width:480px){.wrap{padding:0 18px}}
+
+/* topo */
+.top{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 0;border-bottom:1px solid var(--line);font-size:14px;color:var(--muted);flex-wrap:wrap}
+.top strong{color:var(--ink);font-weight:600}
+.top nav{display:flex;gap:20px;flex-wrap:wrap}
+.top nav a{color:var(--muted);text-decoration:none}
+.top nav a:hover{color:var(--accent)}
+
+/* hero */
+.hero{padding:64px 0 40px;display:grid;gap:28px}
+.role{font-family:var(--font-mono);font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.hero h1{font-size:clamp(38px,6.4vw,72px);font-weight:700;letter-spacing:-.02em;max-width:16ch}
+.hero .lede{font-size:clamp(18px,2vw,21px);color:var(--muted);max-width:60ch}
+.hero .lede b{color:var(--ink);font-weight:600}
+.status{display:inline-flex;align-items:center;gap:10px;font-size:14px;color:var(--muted)}
+.status i{width:8px;height:8px;border-radius:50%;background:var(--ok);display:inline-block}
+
+/* números */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--ink);border-bottom:1px solid var(--line)}
+.stat{padding:22px 20px 24px 0;display:grid;gap:6px;align-content:start}
+.stat + .stat{padding-left:20px;border-left:1px solid var(--line)}
+.stat .n{font-family:var(--font-display);font-size:clamp(30px,3.6vw,42px);font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1}
+.stat .l{font-size:14px;color:var(--muted);line-height:1.45}
+@media (max-width:820px){
+  .stats{grid-template-columns:1fr 1fr}
+  .stat:nth-child(3){padding-left:0;border-left:0}
+  .stat:nth-child(n+3){border-top:1px solid var(--line)}
+}
+
+/* seções */
+section{padding:72px 0 0}
+.sec-head{display:grid;grid-template-columns:200px 1fr;gap:24px;align-items:baseline;margin-bottom:28px}
+.sec-head .k{font-family:var(--font-mono);font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.sec-head h2{font-size:clamp(28px,3.4vw,38px);letter-spacing:-.015em}
+.sec-head p{grid-column:2;color:var(--muted);max-width:62ch}
+@media (max-width:720px){.sec-head{grid-template-columns:1fr;gap:8px}.sec-head p{grid-column:1}}
+
+/* casos */
+.cases{display:grid;gap:20px}
+.case{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:28px 28px 26px;display:grid;gap:18px}
+.case.lead{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.case-head{display:flex;justify-content:space-between;gap:16px;align-items:baseline;flex-wrap:wrap}
+.case-head h3{font-size:clamp(22px,2.4vw,28px);letter-spacing:-.01em}
+.tag{font-family:var(--font-mono);font-size:12px;padding:3px 9px;border-radius:999px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.tag.prod{border-color:var(--ok);color:var(--ok)}
+.tag.dev{border-style:dashed}
+.rows{display:grid;grid-template-columns:150px 1fr;column-gap:24px;row-gap:12px;margin:0}
+.rows dt{font-family:var(--font-mono);font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding-top:4px}
+.rows dd{margin:0;max-width:68ch}
+.rows dd.impact{font-weight:600}
+.rows dd.impact .big{color:var(--accent)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-family:var(--font-mono);font-size:13px;background:var(--accent-soft);color:var(--ink);padding:2px 9px;border-radius:4px}
+@media (max-width:640px){
+  .case{padding:22px 18px}
+  .rows{grid-template-columns:1fr;row-gap:4px}
+  .rows dd{margin-bottom:12px}
+}
+.case-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media (max-width:860px){.case-grid{grid-template-columns:1fr}}
+
+/* conselho */
+.council{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.council span{border:1px solid var(--line);border-radius:4px;padding:8px 10px;font-size:14px;line-height:1.35}
+.council span b{display:block;font-weight:600}
+.council span small{color:var(--muted);font-size:13px}
+@media (max-width:560px){.council{grid-template-columns:1fr 1fr}}
+
+/* como trabalho */
+.skills{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+.skill{padding:22px 22px 24px 0;border-bottom:1px solid var(--line);display:grid;gap:8px;align-content:start}
+.skill:not(:nth-child(3n+1)){padding-left:22px;border-left:1px solid var(--line)}
+.skill h3{font-family:var(--font-body);font-size:17px;font-weight:600;line-height:1.3}
+.skill p{color:var(--muted);font-size:15.5px}
+@media (max-width:860px){
+  .skills{grid-template-columns:1fr 1fr}
+  .skill:not(:nth-child(3n+1)){padding-left:0;border-left:0}
+  .skill:nth-child(even){padding-left:22px;border-left:1px solid var(--line)}
+}
+@media (max-width:560px){
+  .skills{grid-template-columns:1fr}
+  .skill:nth-child(even){padding-left:0;border-left:0}
+}
+
+/* formação */
+.edu{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.edu .col{display:grid;gap:14px;align-content:start}
+.edu h3{font-family:var(--font-mono);font-size:13px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding-bottom:10px;border-bottom:1px solid var(--line)}
+.item b{display:block;font-weight:600}
+.item span{color:var(--muted);font-size:15px}
+.lang{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center}
+.lang em{font-style:normal;font-family:var(--font-mono);font-size:13px;color:var(--muted)}
+.bar{grid-column:1 / -1;height:4px;background:var(--line);border-radius:2px;overflow:hidden;margin-bottom:10px}
+.bar i{display:block;height:100%;background:var(--accent)}
+@media (max-width:860px){.edu{grid-template-columns:1fr}}
+
+/* contato */
+.contact{margin:72px 0 0;padding:44px 0 56px;border-top:1px solid var(--ink);display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:end}
+.contact h2{font-size:clamp(30px,4vw,46px);letter-spacing:-.02em;max-width:14ch}
+.contact ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.contact li{display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}
+.contact li span{font-family:var(--font-mono);font-size:12.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;width:80px;flex:none}
+.contact li a,.contact li b{font-size:18px;font-weight:500;color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);word-break:break-word}
+.contact li a:hover{color:var(--accent);border-color:var(--accent)}
+.copy{font:inherit;font-size:13px;background:none;border:1px solid var(--line);color:var(--muted);border-radius:4px;padding:2px 8px;cursor:pointer}
+.copy:hover{color:var(--accent);border-color:var(--accent)}
+.copy:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (max-width:760px){.contact{grid-template-columns:1fr}}
+footer{padding:0 0 40px;font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <div><strong>Higor Oliveira</strong> · São Paulo, SP</div>
+  <nav aria-label="Seções">
+    <a href="#casos">Casos</a>
+    <a href="#metodo">Como trabalho</a>
+    <a href="#formacao">Formação</a>
+    <a href="#contato">Contato</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <div class="role">AI Builder · Administração na Anhanguera</div>
+  <h1>Eu transformo processos de negócio em agentes e ferramentas que já rodam em produção.</h1>
+  <p class="lede">Uso IA como alavanca para construir de ponta a ponta: <b>mailing, agentes, scrapers, dashboards e sites</b>, feitos com Claude, Python e vibe coding. Hoje sou consultor na River Global, onde cuido de mailing, databases, dashboards e relatórios, e construo plataformas internas com IA.</p>
+  <span class="status"><i aria-hidden="true"></i>Consultor na River Global desde jul/2025</span>
+</div>
+
+<div class="stats" role="list">
+  <div class="stat" role="listitem"><span class="n">US$20K+</span><span class="l">de economia anual com o mailing e o software de ligação que eu construí</span></div>
+  <div class="stat" role="listitem"><span class="n">880+</span><span class="l">SKUs coletados em 10 minutos por um agente de scraping no mercado LATAM</span></div>
+  <div class="stat" role="listitem"><span class="n">3 meses</span><span class="l">operando um departamento inteiro sozinho, com processos automatizados</span></div>
+  <div class="stat" role="listitem"><span class="n">1h+</span><span class="l">de treinamento de IA, em inglês, para a empresa inteira</span></div>
+</div>
+
+<section id="casos">
+  <div class="sec-head">
+    <span class="k">Casos · por impacto</span>
+    <h2>O que eu construí</h2>
+    <p>Ferramentas internas implantadas, agentes que resolvem problemas reais da operação e projetos pessoais de orquestração multiagente.</p>
+  </div>
+
+  <div class="cases">
+
+    <article class="case lead">
+      <div class="case-head">
+        <h3>Mailing próprio + software de ligação integrado</h3>
+        <span class="tag prod">Implantado na empresa</span>
+      </div>
+      <dl class="rows">
+        <dt>Problema</dt>
+        <dd>A empresa pagava por um CRM completo, mas só usava uma parte dele: criar segmentos, disparar e-mails e pesquisar leads e empresas. Funil de vendas e tracking de leads ficavam parados.</dd>
+        <dt>Construção</dt>
+        <dd>Um mailing próprio que cobre exatamente o que o time usava (segmentação, disparo de e-mail e pesquisa de leads e empresas) e um software de ligação conectado a ele. Toda ligação entra no mailing automaticamente, sem gerar registros “lixo”. Feito 100% com vibe coding.</dd>
+        <dt>Stack</dt>
+        <dd class="chips"><span class="chip">Vibe coding</span><span class="chip">Claude</span></dd>
+        <dt>Impacto</dt>
+        <dd class="impact"><span class="big">Mais de US$20K por ano economizados</span> ao substituir o CRM pago. Testado, aprovado e implementado na empresa.</dd>
+      </dl>
+    </article>
+
+    <article class="case">
+      <div class="case-head">
+        <h3>Um departamento inteiro, operado e automatizado por uma pessoa</h3>
+        <span class="tag prod">3 meses em operação</span>
+      </div>
+      <dl class="rows">
+        <dt>Problema</dt>
+        <dd>Fiquei três meses sozinho no departamento, responsável por todos os processos.</dd>
+        <dt>Construção</dt>
+        <dd>Executei e automatizei os processos, criei agentes para cada um deles e mantive em dia os relatórios mensais, as databases e os dashboards.</dd>
+        <dt>Stack</dt>
+        <dd class="chips"><span class="chip">Agentes de IA</span><span class="chip">Dashboards</span><span class="chip">Databases</span></dd>
+        <dt>Impacto</dt>
+        <dd class="impact">A operação do departamento seguiu completa durante todo o período, com uma pessoa só.</dd>
+      </dl>
+    </article>
+
+    <div class="case-grid">
+      <article class="case">
+        <div class="case-head">
+          <h3>Agente de scraping: polaca do Alasca na LATAM</h3>
+          <span class="tag prod">Em uso</span>
+        </div>
+        <dl class="rows">
+          <dt>Problema</dt>
+          <dd>Mapear produtos de polaca do Alasca no mercado latino-americano.</dd>
+          <dt>Construção</dt>
+          <dd>Agente que faz o scraping e entrega uma planilha separada por país, com resumo, mais um front-end para consulta.</dd>
+          <dt>Stack</dt>
+          <dd class="chips"><span class="chip">Agente de IA</span><span class="chip">Scraping</span><span class="chip">Front-end</span></dd>
+          <dt>Impacto</dt>
+          <dd class="impact"><span class="big">Mais de 880 SKUs em 10 minutos.</span></dd>
+        </dl>
+      </article>
+      <article class="case">
+        <div class="case-head">
+          <h3>Plataforma de agentes de monitoramento regulatório</h3>
+          <span class="tag dev">Em desenvolvimento</span>
+        </div>
+        <dl class="rows">
+          <dt>Problema</dt>
+          <dd>Normas e publicações de toda a América Latina podem afetar o mercado de lácteos, e acompanhar tudo isso manualmente é inviável.</dd>
+          <dt>Construção</dt>
+          <dd>Participo da construção de uma plataforma de agentes que monitora a região inteira. Para cada publicação, o agente traz um resumo, o que se aplica à empresa e o nível de prioridade; se for muito urgente, dispara um e-mail automaticamente para a equipe responsável.</dd>
+          <dt>Stack</dt>
+          <dd class="chips"><span class="chip">Agentes de IA</span><span class="chip">Monitoramento</span><span class="chip">Alertas por e-mail</span></dd>
+          <dt>Impacto</dt>
+          <dd class="impact">A empresa vai incluir a plataforma nos contratos com clientes.</dd>
+        </dl>
+      </article>
+
+      <article class="case">
+        <div class="case-head">
+          <h3>Agente de Exportação e Importação</h3>
+          <span class="tag prod">Em uso</span>
+        </div>
+        <dl class="rows">
+          <dt>Problema</dt>
+          <dd>Dados de comércio exterior precisavam chegar às planilhas e ao dashboard sem trabalho manual.</dd>
+          <dt>Construção</dt>
+          <dd>Agente que coleta os dados pela API de um site, alimenta as planilhas de database e atualiza o dashboard direto do SharePoint.</dd>
+          <dt>Stack</dt>
+          <dd class="chips"><span class="chip">Python</span><span class="chip">Agente do Claude</span><span class="chip">API</span><span class="chip">SharePoint</span></dd>
+          <dt>Impacto</dt>
+          <dd class="impact">Pipeline de dados de ponta a ponta, da API ao dashboard.</dd>
+        </dl>
+      </article>
+    </div>
+
+    <article class="case">
+      <div class="case-head">
+        <h3>Conselho de 6 agentes em paralelo</h3>
+        <span class="tag">Projeto pessoal</span>
+      </div>
+      <dl class="rows">
+        <dt>Problema</dt>
+        <dd>Avaliar ideias de projetos e freelas com vários pontos de vista antes de investir tempo nelas.</dd>
+        <dt>Construção</dt>
+        <dd>
+          Seis agentes simultâneos, cada um com sua persona. Eles rodam em paralelo, interagem entre si, descartam ideias e trazem novas, projetam os próximos 12 meses de cada ideia, analisam por que ela poderia não ter funcionado e me entregam um veredito com a melhor opção.
+          <div class="council" style="margin-top:14px">
+            <span><b>CFO</b><small>números e viabilidade</small></span>
+            <span><b>Cliente</b><small>a visão de quem compra</small></span>
+            <span><b>Cético</b><small>procura as falhas</small></span>
+            <span><b>Visionário</b><small>ideias fora da caixa</small></span>
+            <span><b>Chefe de Operações</b><small>execução</small></span>
+            <span><b>Chefe de Marketing</b><small>aquisição e posicionamento</small></span>
+          </div>
+        </dd>
+        <dt>Stack</dt>
+        <dd class="chips"><span class="chip">Orquestração multiagente</span><span class="chip">Claude</span></dd>
+        <dt>Impacto</dt>
+        <dd class="impact">Decisões sobre meus projetos com projeção de 12 meses e análise de falhas antes de começar.</dd>
+      </dl>
+    </article>
+
+    <div class="case-grid">
+      <article class="case">
+        <div class="case-head">
+          <h3>“CEO” autônomo para criativos</h3>
+          <span class="tag dev">Em desenvolvimento</span>
+        </div>
+        <dl class="rows">
+          <dt>Problema</dt>
+          <dd>Descobrir quais criativos funcionam e escalar o que dá certo.</dd>
+          <dt>Construção</dt>
+          <dd>Agente que monitora os cliques, investe mais nos criativos que performaram melhor e gera novos no mesmo estilo. Quando algo dá errado, se adapta e cria novas estratégias junto com o conselho.</dd>
+          <dt>Stack</dt>
+          <dd class="chips"><span class="chip">Claude</span><span class="chip">Higgsfield</span></dd>
+          <dt>Status</dt>
+          <dd>Ainda estou ensinando a ele o que é um criativo bom e um ruim.</dd>
+        </dl>
+      </article>
+
+      <article class="case">
+        <div class="case-head">
+          <h3>Site da empresa</h3>
+          <span class="tag prod">No ar</span>
+        </div>
+        <dl class="rows">
+          <dt>Problema</dt>
+          <dd>A empresa precisava de um site.</dd>
+          <dt>Construção</dt>
+          <dd>Site construído com React, desenvolvido junto com o Claude.</dd>
+          <dt>Stack</dt>
+          <dd class="chips"><span class="chip">React</span><span class="chip">Claude</span></dd>
+        </dl>
+        <div class="case-head" style="border-top:1px solid var(--line);padding-top:18px">
+          <h3>Dashboard financeiro</h3>
+          <span class="tag">Freelance</span>
+        </div>
+        <dl class="rows">
+          <dt>Construção</dt>
+          <dd>Automatizei um dashboard financeiro em Power BI para um cliente usando fórmulas DAX e recriei toda a database que o alimenta.</dd>
+          <dt>Stack</dt>
+          <dd class="chips"><span class="chip">Power BI</span><span class="chip">DAX</span></dd>
+        </dl>
+      </article>
+    </div>
+
+  </div>
+</section>
+
+<section id="metodo">
+  <div class="sec-head">
+    <span class="k">Método</span>
+    <h2>Como eu trabalho com IA</h2>
+    <p>O que eu uso no dia a dia, com o projeto onde cada coisa aparece.</p>
+  </div>
+  <div class="skills">
+    <div class="skill"><h3>Orquestração de agentes</h3><p>Seis agentes com personas rodando em paralelo e conversando entre si no conselho; agentes para cada processo do departamento.</p></div>
+    <div class="skill"><h3>Vibe coding</h3><p>Mailing e software de ligação implantados na empresa, feitos 100% com vibe coding; site da empresa em React com Claude.</p></div>
+    <div class="skill"><h3>Automações de negócio</h3><p>Processos de um departamento inteiro automatizados; relatórios mensais, databases e dashboards atualizados.</p></div>
+    <div class="skill"><h3>APIs e integrações</h3><p>Agente que consome a API de um site e alimenta planilhas e dashboard no SharePoint; ligações caindo direto no mailing.</p></div>
+    <div class="skill"><h3>Análise de dados com IA</h3><p>880+ SKUs organizados por país com resumo; dashboards e Power BI; análise de cliques para decidir onde investir.</p></div>
+    <div class="skill"><h3>Ensinar IA para o time</h3><p>Treinamento de mais de 1 hora, em inglês, para a empresa inteira.</p></div>
+  </div>
+</section>
+
+<section id="formacao">
+  <div class="sec-head">
+    <span class="k">Base</span>
+    <h2>Formação, cursos e idiomas</h2>
+  </div>
+  <div class="edu">
+    <div class="col">
+      <h3>Graduação</h3>
+      <div class="item"><b>Administração</b><span>Anhanguera · EAD · 2024–2028</span></div>
+    </div>
+    <div class="col">
+      <h3>Cursos</h3>
+      <div class="item"><b>AWS GenAI Workshop</b><span>Presencial, no prédio da Amazon · 2026. Construção de um agente na nuvem da AWS, com apresentação de profissionais da Amazon.</span></div>
+      <div class="item"><b>Agentic AI Foundations: Business Applications and Risks</b><span>Harvard Online. Fundamentos de IA agêntica, aplicação no dia a dia e riscos.</span></div>
+    </div>
+    <div class="col">
+      <h3>Idiomas</h3>
+      <div class="lang">
+        <span>Português</span><em>Nativo</em><div class="bar"><i style="width:100%"></i></div>
+        <span>Inglês</span><em>Fluente</em><div class="bar"><i style="width:88%"></i></div>
+        <span>Francês</span><em>A1</em><div class="bar"><i style="width:16%"></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="contact" id="contato">
+  <h2>Vamos construir alguma coisa?</h2>
+  <ul>
+    <li><span>E-mail</span><a href="mailto:oliveirahigor2005@gmail.com">oliveirahigor2005@gmail.com</a><button class="copy" type="button" id="copy-email" data-copy="oliveirahigor2005@gmail.com">Copiar</button></li>
+    <li><span>Telefone</span><a href="tel:+5511942835775">+55 (11) 94283-5775</a><button class="copy" type="button" id="copy-phone" data-copy="+55 11 94283-5775">Copiar</button></li>
+    <li><span>Local</span><b>São Paulo, SP</b></li>
+  </ul>
+</div>
+<footer>Higor Oliveira · AI Builder</footer>
+
+</div>
+<script>
+document.querySelectorAll('.copy').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var t = btn.getAttribute('data-copy');
+    var done = function(){ btn.textContent = 'Copiado'; setTimeout(function(){ btn.textContent = 'Copiar'; }, 1600); };
+    try {
+      navigator.clipboard.writeText(t).then(done, function(){ btn.textContent = 'Não copiou'; });
+    } catch(e) { btn.textContent = 'Não copiou'; }
+  });
+});
+</script>
+</body>
+</html>
