@@ -171,9 +171,10 @@ footer{padding:0 0 40px;font-size:13px;color:var(--muted)}
 .lp-opts button{font:inherit;font-size:16px;font-weight:600;text-align:left;display:flex;justify-content:space-between;align-items:center;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:14px 16px;cursor:pointer}
 .lp-opts button small{font-family:var(--font-mono);font-weight:400;font-size:12px;color:var(--muted)}
 .lp-opts button:hover,.lp-opts button:focus-visible{border-color:var(--accent);outline:none;box-shadow:0 0 0 1px var(--accent)}
-.hero-contact{display:flex;flex-wrap:wrap;gap:10px}
-.hero-contact a{font-family:var(--font-mono);font-size:14px;color:var(--ink);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:6px 14px;background:var(--surface)}
-.hero-contact a:hover,.hero-contact a:focus-visible{border-color:var(--accent);color:var(--accent);outline:none}
+.who{display:grid;gap:4px}
+.who-contact{display:flex;flex-wrap:wrap;gap:4px 16px}
+.who-contact a{color:var(--muted);text-decoration:none;font-size:13.5px}
+.who-contact a:hover,.who-contact a:focus-visible{color:var(--accent)}
 </style>
 </head>
 <body>
@@ -190,7 +191,7 @@ footer{padding:0 0 40px;font-size:13px;color:var(--muted)}
 <div class="wrap">
 
 <header class="top">
-  <div><strong>Higor Oliveira</strong> · São Paulo, SP</div>
+  <div class="who"><div><strong>Higor Oliveira</strong> · São Paulo, SP</div><div class="who-contact"><a href="mailto:oliveirahigor2005@gmail.com">oliveirahigor2005@gmail.com</a><a href="tel:+5511942835775">+55 (11) 94283-5775</a></div></div>
   <div class="right">
   <nav aria-label="Seções" id="nav">
     <a href="#casos">Casos</a>
@@ -207,7 +208,6 @@ footer{padding:0 0 40px;font-size:13px;color:var(--muted)}
   <h1>Eu transformo processos de negócio em agentes e ferramentas que já rodam em produção.</h1>
   <p class="lede">Uso IA como alavanca para construir de ponta a ponta: <b>mailing, agentes, scrapers, dashboards e sites</b>, feitos com Claude, Python e vibe coding. Hoje sou consultor na River Global, onde cuido de mailing, databases, dashboards e relatórios, e construo plataformas internas com IA.</p>
   <span class="status"><i aria-hidden="true"></i>Consultor na River Global desde jul/2025</span>
-  <div class="hero-contact"><a href="mailto:oliveirahigor2005@gmail.com">oliveirahigor2005@gmail.com</a><a href="tel:+5511942835775">+55 (11) 94283-5775</a></div>
 </div>
 
 <div class="stats" role="list">
