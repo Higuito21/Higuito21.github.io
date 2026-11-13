@@ -154,19 +154,49 @@ section{padding:72px 0 0}
 .copy:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 @media (max-width:760px){.contact{grid-template-columns:1fr}}
 footer{padding:0 0 40px;font-size:13px;color:var(--muted)}
+
+/* idioma */
+.langsw{display:inline-flex;border:1px solid var(--line);border-radius:999px;overflow:hidden;font-family:var(--font-mono);font-size:12px}
+.langsw button{font:inherit;background:none;border:0;color:var(--muted);padding:4px 10px;cursor:pointer}
+.langsw button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.langsw button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.top .right{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.lp{position:fixed;inset:0;z-index:50;display:none;place-items:center;padding:20px;background:rgba(10,12,15,.55);backdrop-filter:blur(3px)}
+.lp.open{display:grid}
+.lp-card{background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:30px 28px 26px;max-width:400px;width:100%;display:grid;gap:18px;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.lp-card .k{font-family:var(--font-mono);font-size:12.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.lp-card h2{font-size:26px;letter-spacing:-.01em}
+.lp-card p{color:var(--muted);font-size:15px;margin-top:-8px}
+.lp-opts{display:grid;gap:10px}
+.lp-opts button{font:inherit;font-size:16px;font-weight:600;text-align:left;display:flex;justify-content:space-between;align-items:center;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:14px 16px;cursor:pointer}
+.lp-opts button small{font-family:var(--font-mono);font-weight:400;font-size:12px;color:var(--muted)}
+.lp-opts button:hover,.lp-opts button:focus-visible{border-color:var(--accent);outline:none;box-shadow:0 0 0 1px var(--accent)}
 </style>
 </head>
 <body>
+<div class="lp" id="lp" role="dialog" aria-modal="true" aria-labelledby="lp-title">
+  <div class="lp-card">
+    <span class="k">Higor Oliveira · AI Builder</span>
+    <h2 id="lp-title">Escolha o idioma<br><span style="color:var(--muted);font-weight:500">Choose your language</span></h2>
+    <div class="lp-opts">
+      <button type="button" data-set-lang="pt">Português <small>PT-BR</small></button>
+      <button type="button" data-set-lang="en">English <small>EN</small></button>
+    </div>
+  </div>
+</div>
 <div class="wrap">
 
 <header class="top">
   <div><strong>Higor Oliveira</strong> · São Paulo, SP</div>
-  <nav aria-label="Seções">
+  <div class="right">
+  <nav aria-label="Seções" id="nav">
     <a href="#casos">Casos</a>
     <a href="#metodo">Como trabalho</a>
     <a href="#formacao">Formação</a>
     <a href="#contato">Contato</a>
   </nav>
+  <div class="langsw" role="group" aria-label="Idioma" id="langsw"><button type="button" data-set-lang="pt" aria-pressed="true">PT</button><button type="button" data-set-lang="en" aria-pressed="false">EN</button></div>
+  </div>
 </header>
 
 <div class="hero">
@@ -406,15 +436,61 @@ footer{padding:0 0 40px;font-size:13px;color:var(--muted)}
 
 </div>
 <script>
+(function(){
+var EN = {"Casos": "Projects", "Como trabalho": "How I work", "Formação": "Education", "Contato": "Contact", "AI Builder · Administração na Anhanguera": "AI Builder · Business Administration at Anhanguera", "Eu transformo processos de negócio em agentes e ferramentas que já rodam em produção.": "I turn business processes into agents and tools that are already running in production.", "Uso IA como alavanca para construir de ponta a ponta:": "I use AI as leverage to build end to end:", "mailing, agentes, scrapers, dashboards e sites": "mailing platforms, agents, scrapers, dashboards and websites", ", feitos com Claude, Python e vibe coding. Hoje sou consultor na River Global, onde cuido de mailing, databases, dashboards e relatórios, e construo plataformas internas com IA.": ", built with Claude, Python and vibe coding. Today I'm a consultant at River Global, where I handle mailing, databases, dashboards and reports, and build internal platforms with AI.", "Consultor na River Global desde jul/2025": "Consultant at River Global since Jul 2025", "de economia anual com o mailing e o software de ligação que eu construí": "in annual savings from the mailing platform and calling software I built", "SKUs coletados em 10 minutos por um agente de scraping no mercado LATAM": "SKUs collected in 10 minutes by a scraping agent across LATAM", "3 meses": "3 months", "operando um departamento inteiro sozinho, com processos automatizados": "running an entire department on my own, with automated processes", "de treinamento de IA, em inglês, para a empresa inteira": "of AI training, in English, for the whole company", "Casos · por impacto": "Projects · by impact", "O que eu construí": "What I've built", "Ferramentas internas implantadas, agentes que resolvem problemas reais da operação e projetos pessoais de orquestração multiagente.": "Internal tools in production, agents that solve real operational problems, and personal multi-agent orchestration projects.", "Mailing próprio + software de ligação integrado": "In-house mailing platform + integrated calling software", "Implantado na empresa": "Deployed company-wide", "Problema": "Problem", "A empresa pagava por um CRM completo, mas só usava uma parte dele: criar segmentos, disparar e-mails e pesquisar leads e empresas. Funil de vendas e tracking de leads ficavam parados.": "The company paid for a full CRM but only used part of it: building segments, sending email campaigns and looking up leads and companies. The sales pipeline and lead tracking sat unused.", "Construção": "What I built", "Um mailing próprio que cobre exatamente o que o time usava (segmentação, disparo de e-mail e pesquisa de leads e empresas) e um software de ligação conectado a ele. Toda ligação entra no mailing automaticamente, sem gerar registros “lixo”. Feito 100% com vibe coding.": "An in-house mailing platform covering exactly what the team used (segmentation, email campaigns and lead and company search) plus calling software connected to it. Every call is logged automatically, with no junk records. Built 100% with vibe coding.", "Impacto": "Impact", "Mais de US$20K por ano economizados": "Over US$20K saved per year", "ao substituir o CRM pago. Testado, aprovado e implementado na empresa.": "by replacing the paid CRM. Tested, approved and rolled out across the company.", "Um departamento inteiro, operado e automatizado por uma pessoa": "An entire department, run and automated by one person", "3 meses em operação": "3 months in operation", "Fiquei três meses sozinho no departamento, responsável por todos os processos.": "For three months I was alone in the department, responsible for every process.", "Executei e automatizei os processos, criei agentes para cada um deles e mantive em dia os relatórios mensais, as databases e os dashboards.": "I ran and automated the processes, built agents for each of them, and kept monthly reports, databases and dashboards up to date.", "Agentes de IA": "AI agents", "A operação do departamento seguiu completa durante todo o período, com uma pessoa só.": "The department kept fully operating throughout the period, with a single person.", "Agente de scraping: polaca do Alasca na LATAM": "Scraping agent: Alaska pollock across LATAM", "Em uso": "In use", "Mapear produtos de polaca do Alasca no mercado latino-americano.": "Map Alaska pollock products across the Latin American market.", "Agente que faz o scraping e entrega uma planilha separada por país, com resumo, mais um front-end para consulta.": "An agent that scrapes the market and delivers a spreadsheet split by country, with a summary, plus a front end to browse it.", "Agente de IA": "AI agent", "Mais de 880 SKUs em 10 minutos.": "Over 880 SKUs in 10 minutes.", "Plataforma de agentes de monitoramento regulatório": "Regulatory monitoring agent platform", "Em desenvolvimento": "In development", "Normas e publicações de toda a América Latina podem afetar o mercado de lácteos, e acompanhar tudo isso manualmente é inviável.": "Regulations and publications across all of Latin America can affect the dairy market, and tracking them all by hand isn't feasible.", "Participo da construção de uma plataforma de agentes que monitora a região inteira. Para cada publicação, o agente traz um resumo, o que se aplica à empresa e o nível de prioridade; se for muito urgente, dispara um e-mail automaticamente para a equipe responsável.": "I'm part of the team building an agent platform that monitors the entire region. For each publication, the agent returns a summary, what applies to the company and a priority level; if it's urgent, it automatically emails the responsible team.", "Monitoramento": "Monitoring", "Alertas por e-mail": "Email alerts", "A empresa vai incluir a plataforma nos contratos com clientes.": "The company will include the platform in its client contracts.", "Agente de Exportação e Importação": "Export & Import agent", "Dados de comércio exterior precisavam chegar às planilhas e ao dashboard sem trabalho manual.": "Foreign trade data needed to reach the spreadsheets and the dashboard without manual work.", "Agente que coleta os dados pela API de um site, alimenta as planilhas de database e atualiza o dashboard direto do SharePoint.": "An agent that pulls data from a website's API, feeds the database spreadsheets and updates the dashboard straight from SharePoint.", "Agente do Claude": "Claude agent", "Pipeline de dados de ponta a ponta, da API ao dashboard.": "An end-to-end data pipeline, from API to dashboard.", "Conselho de 6 agentes em paralelo": "A council of 6 parallel agents", "Projeto pessoal": "Personal project", "Avaliar ideias de projetos e freelas com vários pontos de vista antes de investir tempo nelas.": "Evaluate project and freelance ideas from several points of view before investing time in them.", "Seis agentes simultâneos, cada um com sua persona. Eles rodam em paralelo, interagem entre si, descartam ideias e trazem novas, projetam os próximos 12 meses de cada ideia, analisam por que ela poderia não ter funcionado e me entregam um veredito com a melhor opção.": "Six simultaneous agents, each with its own persona. They run in parallel, interact with each other, discard ideas and bring new ones, project the next 12 months of each idea, analyze why it might fail, and hand me a verdict with the best option.", "números e viabilidade": "numbers and feasibility", "Cliente": "Customer", "a visão de quem compra": "the buyer's view", "Cético": "Skeptic", "procura as falhas": "hunts for flaws", "Visionário": "Visionary", "ideias fora da caixa": "out-of-the-box ideas", "Chefe de Operações": "Head of Operations", "execução": "execution", "Chefe de Marketing": "Head of Marketing", "aquisição e posicionamento": "acquisition and positioning", "Orquestração multiagente": "Multi-agent orchestration", "Decisões sobre meus projetos com projeção de 12 meses e análise de falhas antes de começar.": "Decisions on my projects backed by a 12-month projection and failure analysis before I start.", "“CEO” autônomo para criativos": "Autonomous “CEO” for ad creatives", "Descobrir quais criativos funcionam e escalar o que dá certo.": "Find out which creatives work and scale what succeeds.", "Agente que monitora os cliques, investe mais nos criativos que performaram melhor e gera novos no mesmo estilo. Quando algo dá errado, se adapta e cria novas estratégias junto com o conselho.": "An agent that tracks clicks, invests more in the best-performing creatives and generates new ones in the same style. When something fails, it adapts and builds new strategies together with the council.", "Ainda estou ensinando a ele o que é um criativo bom e um ruim.": "I'm still teaching it what makes a creative good or bad.", "Site da empresa": "Company website", "No ar": "Live", "A empresa precisava de um site.": "The company needed a website.", "Site construído com React, desenvolvido junto com o Claude.": "A website built in React, developed together with Claude.", "Dashboard financeiro": "Financial dashboard", "Automatizei um dashboard financeiro em Power BI para um cliente usando fórmulas DAX e recriei toda a database que o alimenta.": "I automated a Power BI financial dashboard for a client using DAX formulas and rebuilt the entire database behind it.", "Método": "Method", "Como eu trabalho com IA": "How I work with AI", "O que eu uso no dia a dia, com o projeto onde cada coisa aparece.": "What I use day to day, with the project where each one shows up.", "Orquestração de agentes": "Agent orchestration", "Seis agentes com personas rodando em paralelo e conversando entre si no conselho; agentes para cada processo do departamento.": "Six persona agents running in parallel and talking to each other in the council; agents for every process in the department.", "Mailing e software de ligação implantados na empresa, feitos 100% com vibe coding; site da empresa em React com Claude.": "Mailing platform and calling software deployed company-wide, built 100% with vibe coding; company website in React with Claude.", "Automações de negócio": "Business automation", "Processos de um departamento inteiro automatizados; relatórios mensais, databases e dashboards atualizados.": "An entire department's processes automated; monthly reports, databases and dashboards kept up to date.", "APIs e integrações": "APIs and integrations", "Agente que consome a API de um site e alimenta planilhas e dashboard no SharePoint; ligações caindo direto no mailing.": "An agent that consumes a website's API and feeds spreadsheets and a SharePoint dashboard; calls logged straight into the mailing platform.", "Análise de dados com IA": "AI-powered data analysis", "880+ SKUs organizados por país com resumo; dashboards e Power BI; análise de cliques para decidir onde investir.": "880+ SKUs organized by country with a summary; dashboards and Power BI; click analysis to decide where to invest.", "Ensinar IA para o time": "Teaching AI to the team", "Treinamento de mais de 1 hora, em inglês, para a empresa inteira.": "A 1+ hour training session, in English, for the whole company.", "Base": "Background", "Formação, cursos e idiomas": "Education, courses and languages", "Graduação": "Degree", "Administração": "Business Administration", "Anhanguera · EAD · 2024–2028": "Anhanguera · Online · 2024–2028", "Cursos": "Courses", "Presencial, no prédio da Amazon · 2026. Construção de um agente na nuvem da AWS, com apresentação de profissionais da Amazon.": "In person, at Amazon's offices · 2026. Building an agent on AWS cloud, presented by Amazon professionals.", "Harvard Online. Fundamentos de IA agêntica, aplicação no dia a dia e riscos.": "Harvard Online. Agentic AI fundamentals, everyday business applications and risks.", "Idiomas": "Languages", "Português": "Portuguese", "Nativo": "Native", "Inglês": "English", "Fluente": "Fluent", "Francês": "French", "Vamos construir alguma coisa?": "Shall we build something?", "E-mail": "Email", "Copiar": "Copy", "Telefone": "Phone", "Local": "Location"};
+var UI = {"pt": {"title": "Higor Oliveira — Portfólio AI Builder", "nav": "Seções", "copied": "Copiado", "copy": "Copiar", "fail": "Não copiou", "switch": "Idioma"}, "en": {"title": "Higor Oliveira — AI Builder Portfolio", "nav": "Sections", "copied": "Copied", "copy": "Copy", "fail": "Couldn't copy", "switch": "Language"}};
+var store = {get:function(){try{return localStorage.getItem('pf-lang')}catch(e){return null}},
+             set:function(v){try{localStorage.setItem('pf-lang',v)}catch(e){}}};
+var nodes = [];
+var w = document.createTreeWalker(document.querySelector('.wrap'), NodeFilter.SHOW_TEXT);
+var n;
+while((n = w.nextNode())){
+  var raw = n.nodeValue, key = raw.replace(/\s+/g,' ').trim();
+  if(key && Object.prototype.hasOwnProperty.call(EN,key)){
+    var lead = raw.match(/^\s*/)[0], tail = raw.match(/\s*$/)[0];
+    nodes.push({node:n, pt:raw, en:lead + EN[key] + tail});
+  }
+}
+var current = 'pt';
+function apply(lang){
+  current = lang === 'en' ? 'en' : 'pt';
+  nodes.forEach(function(x){ x.node.nodeValue = current === 'en' ? x.en : x.pt; });
+  document.documentElement.lang = current === 'en' ? 'en' : 'pt-BR';
+  document.title = UI[current].title;
+  document.getElementById('nav').setAttribute('aria-label', UI[current].nav);
+  document.getElementById('langsw').setAttribute('aria-label', UI[current].switch);
+  document.querySelectorAll('#langsw button').forEach(function(b){
+    b.setAttribute('aria-pressed', b.getAttribute('data-set-lang') === current ? 'true' : 'false');
+  });
+  document.querySelectorAll('.copy').forEach(function(b){ b.textContent = UI[current].copy; });
+}
+var lp = document.getElementById('lp');
+function choose(lang){
+  apply(lang); store.set(current);
+  if(lp.classList.contains('open')){ lp.classList.remove('open'); document.body.style.overflow=''; }
+}
+document.querySelectorAll('[data-set-lang]').forEach(function(b){
+  b.addEventListener('click', function(){ choose(b.getAttribute('data-set-lang')); });
+});
+var param = (location.search.match(/[?&]lang=(pt|en)/i) || [])[1];
+var saved = store.get();
+if(param){ apply(param.toLowerCase()); store.set(current); }
+else if(saved){ apply(saved); }
+else {
+  lp.classList.add('open'); document.body.style.overflow='hidden';
+  var pref = (navigator.language||'').toLowerCase().indexOf('pt') === 0 ? 'pt' : 'en';
+  var first = lp.querySelector('[data-set-lang="'+pref+'"]'); if(first) first.focus();
+}
+
 document.querySelectorAll('.copy').forEach(function(btn){
   btn.addEventListener('click', function(){
     var t = btn.getAttribute('data-copy');
-    var done = function(){ btn.textContent = 'Copiado'; setTimeout(function(){ btn.textContent = 'Copiar'; }, 1600); };
-    try {
-      navigator.clipboard.writeText(t).then(done, function(){ btn.textContent = 'Não copiou'; });
-    } catch(e) { btn.textContent = 'Não copiou'; }
+    var done = function(){ btn.textContent = UI[current].copied; setTimeout(function(){ btn.textContent = UI[current].copy; }, 1600); };
+    try { navigator.clipboard.writeText(t).then(done, function(){ btn.textContent = UI[current].fail; }); }
+    catch(e) { btn.textContent = UI[current].fail; }
   });
 });
+})();
 </script>
 </body>
 </html>
